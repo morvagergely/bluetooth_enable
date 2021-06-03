@@ -6,14 +6,11 @@ class BluetoothEnable {
   static const MethodChannel _channel = const MethodChannel('bluetooth_enable');
 
   static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+    return (await _channel.invokeMethod<String>('getPlatformVersion'))!;
   }
 
   static Future<String> get enableBluetooth async {
-    final String bluetoothState =
-        await _channel.invokeMethod('enableBluetooth');
-    return bluetoothState;
+    return (await _channel.invokeMethod<String>('enableBluetooth'))!;
   }
 
   static Future<String> customBluetoothRequest(
@@ -64,25 +61,23 @@ class BluetoothEnable {
                 )
               : null,
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text(cancelBtnText),
               onPressed: () {
                 Navigator.of(context).pop("false");
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text(acceptBtnText),
               onPressed: () async {
-                String bluetoothState =
-                    await _channel.invokeMethod('customEnable');
+                String bluetoothState = await (_channel
+                    .invokeMethod('customEnable') as FutureOr<String>);
                 Navigator.of(context).pop(bluetoothState);
               },
             ),
           ],
         );
       },
-    ).then((value) {
-      return value;
-    });
+    ).then((value) => value!);
   }
 }

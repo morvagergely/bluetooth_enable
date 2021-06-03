@@ -59,7 +59,7 @@ public class BluetoothEnablePlugin implements MethodCallHandler, ActivityResultL
             {  
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 activity.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BLUETOOTH);
-                System.out.println("rdddesult: " + result);
+                System.out.println("result: " + result);
                 pendingResult = result;
                 break;
             }
